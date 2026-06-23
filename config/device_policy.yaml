@@ -1,0 +1,25 @@
+policy_version: 1.0
+warehouse_id: WH-SEOUL-01
+glass:
+  min_battery_for_new_task_pct: 20
+  max_device_temperature_c: 45
+  heartbeat_interval_seconds: 30
+  offline_cache_ttl_minutes: 30
+  ui:
+    default_language: ko-KR
+    font_size: medium
+    hud_position: upper_right
+  privacy:
+    raw_video_storage_enabled: false
+    exception_snapshot_enabled: true
+    face_blur_enabled: true
+scanner:
+  allow_bluetooth_ring_scanner: true
+  scan_timeout_ms: 1500
+edge:
+  required_model_signature: true
+  rollback_on_error_rate_threshold_pct: 2.0
+  local_event_queue_retention_hours: 72
+updates:
+  allowed_window: "02:00-04:00"
+  canary_percentage: 10

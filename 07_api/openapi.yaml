@@ -1,0 +1,138 @@
+openapi: 3.0.3
+info:
+  title: XR Picking Copilot API
+  version: 1.0.0
+  description: API for XR warehouse picking, verification, and WMS integration.
+servers:
+  - url: https://api.example.com/v1
+security:
+  - bearerAuth: []
+paths:
+  /sessions:
+    post:
+      summary: Start worker XR session
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartSessionRequest'
+      responses:
+        '201':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+  /sessions/{sessionId}/next-task:
+    post:
+      summary: Request next picking task
+      parameters:
+        - name: sessionId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Next task card
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/XRTaskCard'
+  /verification-events:
+    post:
+      summary: Submit scan/AI verification event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerificationEvent'
+      responses:
+        '202':
+          description: Accepted
+  /exceptions:
+    post:
+      summary: Raise picking exception
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ExceptionCase'
+      responses:
+        '201':
+          description: Exception created
+  /devices/{deviceId}/heartbeat:
+    post:
+      summary: Device heartbeat
+      parameters:
+        - name: deviceId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '204': { description: OK }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    StartSessionRequest:
+      type: object
+      required: [warehouse_id, worker_id, device_id]
+      properties:
+        warehouse_id: { type: string }
+        worker_id: { type: string }
+        device_id: { type: string }
+        language: { type: string, example: ko-KR }
+    Session:
+      type: object
+      properties:
+        session_id: { type: string }
+        expires_at: { type: string, format: date-time }
+        offline_cache_ttl_minutes: { type: integer }
+    XRTaskCard:
+      type: object
+      properties:
+        pick_task_id: { type: string }
+        pick_line_id: { type: string }
+        location_id: { type: string }
+        sku_id: { type: string }
+        gtin: { type: string }
+        sku_name: { type: string }
+        quantity: { type: number }
+        uom: { type: string }
+        tote_id: { type: string }
+        image_url: { type: string }
+        instructions: { type: array, items: { type: string } }
+    VerificationEvent:
+      type: object
+      required: [tenant_id, warehouse_id, pick_line_id, event_type, idempotency_key]
+      properties:
+        tenant_id: { type: string }
+        warehouse_id: { type: string }
+        pick_line_id: { type: string }
+        event_type:
+          type: string
+          enum: [LOCATION_SCAN, SKU_SCAN, VISUAL_CHECK, QUANTITY_CONFIRM, TOTE_SCAN]
+        expected_value: { type: string }
+        observed_value: { type: string }
+        confidence: { type: number, minimum: 0, maximum: 1 }
+        result:
+          type: string
+          enum: [PASS, WARN, FAIL, OVERRIDE]
+        idempotency_key: { type: string }
+        captured_at: { type: string, format: date-time }
+    ExceptionCase:
+      type: object
+      required: [warehouse_id, pick_line_id, exception_type]
+      properties:
+        warehouse_id: { type: string }
+        pick_line_id: { type: string }
+        exception_type:
+          type: string
+          enum: [STOCKOUT, LOCATION_MISMATCH, LABEL_DAMAGED, DEVICE_ISSUE, WMS_DELAY, SAFETY]
+        note: { type: string }

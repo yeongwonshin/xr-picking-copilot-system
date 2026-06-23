@@ -1,0 +1,23 @@
+{
+  "warehouse": {
+    "warehouse_id": "WH-SEOUL-01",
+    "name": "Seoul Fulfillment Center",
+    "timezone": "Asia/Seoul"
+  },
+  "locations": [
+    {"location_id": "A-03-02-B", "zone_id": "A", "aisle": "03", "rack": "02", "bin": "B", "qr_value": "LOC:A-03-02-B"},
+    {"location_id": "A-03-02-C", "zone_id": "A", "aisle": "03", "rack": "02", "bin": "C", "qr_value": "LOC:A-03-02-C"}
+  ],
+  "skus": [
+    {"sku_id": "SKU-000123", "gtin": "8801234567890", "name": "스킨케어 세트 50ml", "similar_sku_group": "COSMETIC-SET-50", "is_ai_supported": true},
+    {"sku_id": "SKU-000124", "gtin": "8801234567001", "name": "스킨케어 세트 100ml", "similar_sku_group": "COSMETIC-SET-50", "is_ai_supported": true}
+  ],
+  "pick_task": {
+    "pick_task_id": "PT-20001",
+    "worker_id": "W-083",
+    "status": "ASSIGNED",
+    "lines": [
+      {"pick_line_id": "PL-10001", "order_id": "ORD-2026-00082", "sku_id": "SKU-000123", "location_id": "A-03-02-B", "requested_qty": 2, "tote_id": "TOTE-17"}
+    ]
+  }
+}

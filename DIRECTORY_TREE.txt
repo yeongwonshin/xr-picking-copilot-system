@@ -1,0 +1,58 @@
+00_strategy/
+  └── 01_executive_onepager.md
+  └── 02_market_positioning.md
+01_product/
+  └── 01_prd.md
+  └── 02_user_journeys.md
+  └── 03_roadmap.md
+02_architecture/
+  └── 01_system_architecture.md
+  └── 02_sequence_pick_flow.md
+  └── 03_deployment_topology.md
+03_domain/
+  └── 01_domain_model.md
+  └── 02_process_blueprint.md
+04_xr_ux/
+  └── 01_glass_ui_spec.md
+  └── 02_voice_command_grammar.md
+  └── 03_safety_ergonomics.md
+05_ai_vision/
+  └── 01_ai_error_detection_design.md
+  └── 02_model_card.md
+  └── 03_annotation_guide.md
+06_integration/
+  └── 01_wms_integration_strategy.md
+  └── 02_gs1_epcis_event_mapping.md
+07_api/
+  └── event_contracts.md
+  └── openapi.yaml
+08_data/
+  └── sample_data.json
+  └── schema.sql
+09_edge_device/
+  └── 01_edge_runtime_spec.md
+  └── 02_device_management.md
+10_infra_ops/
+  └── 01_k8s_reference_architecture.md
+  └── 02_observability_slo.md
+  └── 03_runbook.md
+11_security/
+  └── 01_security_privacy.md
+  └── 02_compliance_checklist.md
+12_commercial/
+  └── 01_pricing_roi.md
+  └── 02_sales_playbook.md
+13_quality/
+  └── 01_acceptance_tests.md
+  └── 02_pilot_metrics.md
+14_backlog/
+  └── 01_epics_user_stories.md
+README.md
+config/
+  └── device_policy.yaml
+  └── example.env
+references/
+  └── sources.md
+src_pseudocode/
+  └── task_optimizer.py
+  └── verification_engine.py
